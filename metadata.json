@@ -1,0 +1,6 @@
+{
+  "name": "AI Persona Lab",
+  "description": "An interactive environment to converse with and configure adaptive AI personalities, tailoring emotional range, humor, analytical depth, and conversation style.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
