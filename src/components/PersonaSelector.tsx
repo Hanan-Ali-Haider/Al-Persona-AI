@@ -48,8 +48,8 @@ export default function PersonaSelector({
               onClick={() => onSelectPreset(preset)}
               className={`flex flex-col text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden group ${
                 isActive
-                  ? "bg-slate-800/80 border-slate-600 shadow-md shadow-slate-950/40"
-                  : "bg-slate-900/40 border-slate-800/80 hover:bg-slate-800/40 hover:border-slate-700/60"
+                  ? "bg-slate-800 border-slate-600 shadow-md shadow-slate-950/40"
+                  : "bg-slate-900 border-slate-800/80 hover:bg-slate-850 hover:border-slate-700/60"
               }`}
             >
               {/* Highlight backdrop glow */}

@@ -37,7 +37,7 @@ export default function ConfigMatrix({ sliders, onChangeSliders }: ConfigMatrixP
   };
 
   return (
-    <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 space-y-6" id="config-matrix-container">
+    <div className="bg-slate-900 border border-slate-800/80 rounded-xl p-5 space-y-6" id="config-matrix-container">
       <div className="flex items-center justify-between border-b border-slate-800/80 pb-3" id="config-matrix-header">
         <div className="flex items-center gap-2" id="cognitive-matrix-title">
           <Gauge className="w-5 h-5 text-indigo-400" id="icon-gauge" />

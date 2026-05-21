@@ -132,7 +132,7 @@ export default function ChatInterface({
   };
 
   return (
-    <div className="flex flex-col h-[600px] bg-slate-900/40 border border-slate-800/80 rounded-xl overflow-hidden shadow-xl shadow-slate-950/20" id="chat-interface-wrap">
+    <div className="flex flex-col h-[600px] bg-slate-900 border border-slate-800/80 rounded-xl overflow-hidden shadow-xl shadow-slate-950/20" id="chat-interface-wrap">
       {/* Thread header bar */}
       <div className="px-5 py-4 bg-slate-950 border-b border-slate-800/80 flex items-center justify-between" id="chat-header-bar">
         <div className="flex items-center gap-2.5" id="chat-session-badge">

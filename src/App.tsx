@@ -18,7 +18,11 @@ export default function App() {
     return localStorage.getItem("persona_lab_onboarding_complete") === "true";
   });
 
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState<boolean>(() => {
+    return localStorage.getItem("persona_lab_onboarding_complete") !== "true";
+  });
+
+  const [activeTab, setActiveTab] = useState<"chat" | "tuning">("chat");
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -251,55 +255,81 @@ Let me know if you want to try again.`;
       </header>
 
       {/* Primary Layout Area */}
-      <main className="flex-1 relative z-10 max-w-7xl mx-auto w-full px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6" id="app-main-grid">
-        {/* Left Side: Cognitive Configurations Panel */}
-        <section className="lg:col-span-5 space-y-6 flex flex-col justify-start" id="config-panel">
-          {/* Section Heading */}
-          <div className="space-y-1.5" id="config-intro">
-            <div className="flex items-center gap-1 text-xs text-indigo-400 font-mono font-semibold uppercase tracking-wider" id="meta-banner">
-              <span>Settings</span>
-              <ChevronRight className="w-3 h-3" />
-              <span>Personality</span>
+      <main className="flex-1 relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 py-4 sm:py-8 flex flex-col gap-5 sm:gap-6" id="app-main-layout">
+        {/* Mobile View Tab Switcher Only */}
+        <div className="lg:hidden grid grid-cols-2 bg-slate-900 border border-slate-850 p-1 rounded-lg gap-1 shadow-md" id="mobile-tab-bar">
+          <button
+            onClick={() => setActiveTab("chat")}
+            className={`py-2 px-3 rounded font-medium text-xs font-display flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              activeTab === "chat"
+                ? "bg-slate-800 text-slate-100 shadow-sm font-semibold"
+                : "text-slate-400 hover:text-slate-200"
+            }`}
+          >
+            💬 Chat Interface
+          </button>
+          <button
+            onClick={() => setActiveTab("tuning")}
+            className={`py-2 px-3 rounded font-medium text-xs font-display flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              activeTab === "tuning"
+                ? "bg-slate-800 text-slate-100 shadow-sm font-semibold"
+                : "text-slate-400 hover:text-slate-200"
+            }`}
+          >
+            ⚙️ Tweak Personality
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6" id="app-main-grid">
+          {/* Left Side: Cognitive Configurations Panel */}
+          <section className={`space-y-6 flex flex-col justify-start lg:col-span-5 ${activeTab === "tuning" ? "block" : "hidden lg:flex"}`} id="config-panel">
+            {/* Section Heading */}
+            <div className="space-y-1.5" id="config-intro">
+              <div className="flex items-center gap-1 text-xs text-indigo-400 font-mono font-semibold uppercase tracking-wider" id="meta-banner">
+                <span>Settings</span>
+                <ChevronRight className="w-3 h-3" />
+                <span>Personality</span>
+              </div>
+              <h2 className="font-display font-semibold text-xl text-slate-100 tracking-tight" id="config-headline">
+                Customize AI Personality
+              </h2>
+              <p className="text-xs text-slate-400 leading-relaxed" id="config-summary">
+                Select a personality preset or tweak individual sliders to customize how the AI responds.
+              </p>
             </div>
-            <h2 className="font-display font-semibold text-xl text-slate-100 tracking-tight" id="config-headline">
-              Customize AI Personality
-            </h2>
-            <p className="text-xs text-slate-400 leading-relaxed" id="config-summary">
-              Select a personality preset or tweak individual sliders to customize how the AI responds.
-            </p>
-          </div>
 
-          {/* Preset Cards Select */}
-          <PersonaSelector
-            selectedPresetId={selectedPresetId}
-            onSelectPreset={handleSelectPreset}
-          />
+            {/* Preset Cards Select */}
+            <PersonaSelector
+              selectedPresetId={selectedPresetId}
+              onSelectPreset={handleSelectPreset}
+            />
 
-          {/* Cognitive Sliders Matrix */}
-          <ConfigMatrix
-            sliders={sliders}
-            onChangeSliders={handleChangeSliders}
-          />
+            {/* Cognitive Sliders Matrix */}
+            <ConfigMatrix
+              sliders={sliders}
+              onChangeSliders={handleChangeSliders}
+            />
 
-          {/* Linguistic Diagnostics Panel */}
-          <CognitiveDashboard
-            messages={messages}
-          />
-        </section>
+            {/* Linguistic Diagnostics Panel */}
+            <CognitiveDashboard
+              messages={messages}
+            />
+          </section>
 
-        {/* Right Side: Conversation thread viewport */}
-        <section className="lg:col-span-7 flex flex-col h-full" id="workspace-panel">
-          <ChatInterface
-            messages={messages}
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            isLoading={isLoading}
-            onSendMessage={handleSendMessage}
-            onClearChat={handleClearChat}
-            sliders={sliders}
-            apiHealth={apiHealth}
-          />
-        </section>
+          {/* Right Side: Conversation thread viewport */}
+          <section className={`flex flex-col h-full lg:col-span-7 ${activeTab === "chat" ? "block" : "hidden lg:flex"}`} id="workspace-panel">
+            <ChatInterface
+              messages={messages}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              isLoading={isLoading}
+              onSendMessage={handleSendMessage}
+              onClearChat={handleClearChat}
+              sliders={sliders}
+              apiHealth={apiHealth}
+            />
+          </section>
+        </div>
       </main>
 
       {/* Master Compact Footer */}

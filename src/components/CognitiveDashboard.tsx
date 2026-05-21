@@ -32,7 +32,7 @@ export default function CognitiveDashboard({ messages }: CognitiveDashboardProps
   };
 
   return (
-    <div className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-5 space-y-5" id="cognitive-dashboard-container">
+    <div className="bg-slate-900 border border-slate-800/80 rounded-xl p-5 space-y-5" id="cognitive-dashboard-container">
       <div className="flex items-center justify-between border-b border-slate-800/80 pb-3" id="cognitive-dashboard-header">
         <div className="flex items-center gap-2" id="cognitive-dashboard-title">
           <Terminal className="w-5 h-5 text-emerald-400" id="icon-terminal" />
