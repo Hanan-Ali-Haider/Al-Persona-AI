@@ -114,19 +114,9 @@ async function startServer() {
     });
   }
 
-  if (process.env.VERCEL) {
-    // Under Vercel serverless functions, we don't bind to PORT manually
-    return;
-  }
-
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`Express server running on http://localhost:${PORT}`);
   });
 }
 
-// Start the server if not running as a Vercel serverless function
-if (!process.env.VERCEL) {
-  startServer();
-}
-
-export default app;
+startServer();
